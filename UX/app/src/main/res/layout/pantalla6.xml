@@ -13,7 +13,7 @@
         android:layout_marginTop="231dp"
         android:layout_marginBottom="14dp"
         android:onClick="botonPalabra1_pulsado"
-        android:text="Button"
+        android:text="Initial Text"
         android:textSize="20sp"
         app:layout_constraintWidth_percent="0.8"
         app:layout_constraintHeight_percent="0.1"

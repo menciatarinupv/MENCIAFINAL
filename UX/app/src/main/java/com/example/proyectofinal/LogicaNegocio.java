@@ -2,18 +2,17 @@ package com.example.proyectofinal;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import androidx.annotation.RequiresApi;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 import java.util.Optional;
 
@@ -33,6 +32,9 @@ public class LogicaNegocio {
     }
     public interface RespuestaRESTUI {
         void callbackUI(int codigo, String cuerpo);
+    }
+    public interface Respuesta2 {
+        void callback ( Bundle resultado);
     }
 
 
@@ -114,5 +116,50 @@ public class LogicaNegocio {
 
                    }
                });
+    }
+
+    public static void pedirPalabraAlServidorRest(int palabracual,Respuesta2 respuesta22){
+        Log.d("primeraApp", "empiezaMadarPalabraUser");
+        PeticionarioREST elPeticionario2 = new PeticionarioREST();
+        Log.d("primeraApp", "creoPeticionario2");
+        elPeticionario2.hacerPeticionREST(
+                "GET",
+                url_servidor.orElse(servidor_por_defecto)+"/palabras",
+                null,
+                new PeticionarioREST.RespuestaREST() {
+                    @Override
+                    public void callback(int codigo, String cuerpo) {
+                        Log.d("segundaApp", "el cuerpo es" + codigo);
+
+
+                        /* aquí deberíamos analizar la respuesta REST+HTTP. Si es correcta, parsear el resultado
+                         que estará en JSON (pero como un único texto) para sacar las partes que nos interesen.
+
+                         Luego, ponemos las respuestas ya pasadas al tipo correcto en bundle (almacén clave-valor)
+                         y llamamos al callback que está esperando en la parte de UX
+                         */
+                        Bundle res = new Bundle();
+                        res.putInt( "codigo", codigo );
+                        res.putString( "resultadoSinParsear", cuerpo );
+
+                        //JSONArray jsonArrayPalabras = JSONParser.parseString(cuerpo).getAsJsonArray();
+
+                        try {
+                            JSONArray jsonArrayPalabras = new JSONArray(cuerpo);
+                            JSONObject jObject = jsonArrayPalabras.getJSONObject(palabracual);
+                            res.putString("palabra", jObject.getString("palabra")); // Actualizado
+                            respuesta22.callback(res);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        respuesta22.callback(res);
+
+                        Log.d( "segundaApp", "LogicaNegocio.pedirAlgoAlServidorRest().callback: recibo: " + cuerpo );
+
+                    }
+                });
+
     }
 }
