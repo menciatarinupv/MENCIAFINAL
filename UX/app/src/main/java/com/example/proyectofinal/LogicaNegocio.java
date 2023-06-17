@@ -108,5 +108,50 @@ public class LogicaNegocio {
                });
    }
 
+   public static void mandarPalabraUserAlServidorRest(String palabraString, String nicknameString, RespuestaVacia respuestaUI) {
+       Log.d("primeraApp", "empiezaMadarPalabraUser");
+       PeticionarioREST elPeticionario = new PeticionarioREST();
+       Log.d("primeraApp", "creoPeticionario");
+
+       // Crear un objeto JSON a partir del palabraString
+       JSONObject json1 = new JSONObject();
+       /*try {
+           json.put("palabra", palabraString);
+           Log.d("primeraApp", "paso a json el string de palabra " + json);
+       } catch (JSONException e) {
+           e.printStackTrace();
+       }
+       // Crear un objeto JSON a partir del nicknameString
+       JSONObject jsonnickname = new JSONObject();
+       try {
+           jsonnickname.put("nombre", nicknameString);
+           Log.d("primeraApp", "paso a json el string de nickname" + jsonnickname);
+       } catch (JSONException e) {
+           e.printStackTrace();
+       }*/
+       try {
+           json1.put("palabra", palabraString);
+           json1.put("nombre", nicknameString);
+           Log.d("primeraApp", "paso a json el string de palabra y el string de nickname " + json1);
+       } catch (JSONException e) {
+           e.printStackTrace();
+       }
+
+       elPeticionario.hacerPeticionREST(
+               "POST",
+               url_servidor.orElse(servidor_por_defecto)+"/palabraUser",
+               json1.toString(),
+               new PeticionarioREST.RespuestaREST() {
+                   @Override
+                   public void callback(int codigo, String cuerpo) {
+                       Log.d("primeraApp", "el cuerpo es" + json1.toString());
+                       respuestaUI.callback();
+
+                   }
+               });
+
+
+
+    }
 
 }

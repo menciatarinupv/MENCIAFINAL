@@ -11,41 +11,67 @@
         android:layout_width="186dp"
         android:layout_height="0dp"
         android:layout_marginTop="63dp"
-        android:layout_marginBottom="111dp"
+        android:layout_marginBottom="37dp"
         android:fontFamily="serif"
         android:text="Temática"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/palabra"
+        app:layout_constraintBottom_toTopOf="@+id/nickname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/palabra"
-        android:layout_width="214dp"
+        android:layout_width="224dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="86dp"
+        android:layout_marginBottom="24dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="escriba palabra"
+        android:inputType="textPersonName"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/enviar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nickname" />
+
+    <Button
+        android:id="@+id/enviar"
+        android:layout_width="168dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="49dp"
+        android:onClick="botonEnviar_pulsado"
+        android:text="enviar!"
+        android:textColor="#FFEB3B"
+        app:layout_constraintBottom_toTopOf="@+id/enviartodo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/palabra" />
+
+    <EditText
+        android:id="@+id/nickname"
+        android:layout_width="207dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="116dp"
+        android:ems="10"
+        android:hint="introduce tu nickname"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/palabra"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tematica" />
 
     <Button
-        android:id="@+id/enviar"
-        android:layout_width="171dp"
+        android:id="@+id/enviartodo"
+        android:layout_width="177dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="202dp"
-        android:onClick="botonEnviar_pulsado"
-        android:text="enviar!"
-        android:textColor="#FFEB3B"
+        android:layout_marginBottom="101dp"
+        android:text="enviar todo"
+        android:onClick="botonEnviarTodo_pulsado"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/palabra" />
+        app:layout_constraintTop_toBottomOf="@+id/enviar" />
 </androidx.constraintlayout.widget.ConstraintLayout>
