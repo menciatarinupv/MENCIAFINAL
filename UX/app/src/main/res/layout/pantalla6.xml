@@ -8,22 +8,27 @@
 
     <Button
         android:id="@+id/palabra1"
-        android:layout_width="287dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="231dp"
         android:layout_marginBottom="14dp"
+        android:onClick="botonPalabra1_pulsado"
         android:text="Button"
         android:textSize="20sp"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintHeight_percent="0.1"
         app:layout_constraintBottom_toTopOf="@+id/palabra2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textoexcribe"/>
 
     <Button
         android:id="@+id/palabra2"
-        android:layout_width="287dp"
-        android:layout_height="0dp"
+        android:layout_width="237dp"
+        android:layout_height="67dp"
         android:layout_marginBottom="26dp"
+        android:onClick="botonPalabra2_pulsado"
         android:text="Button"
         android:textSize="20sp"
         android:visibility="visible"
@@ -35,9 +40,10 @@
 
     <Button
         android:id="@+id/palabra3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="238dp"
+        android:layout_height="73dp"
         android:layout_marginBottom="26dp"
+        android:onClick="botonPalabra3_pulsado"
         android:text="Button"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/palabra4"
@@ -47,9 +53,10 @@
 
     <Button
         android:id="@+id/palabra4"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="240dp"
+        android:layout_height="74dp"
         android:layout_marginBottom="31dp"
+        android:onClick="botonPalabra4_pulsado"
         android:text="Button"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/palabra5"
@@ -59,11 +66,12 @@
 
     <Button
         android:id="@+id/palabra5"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="240dp"
+        android:layout_height="74dp"
         android:layout_marginStart="59dp"
         android:layout_marginEnd="59dp"
         android:layout_marginBottom="107dp"
+        android:onClick="botonPalabra5_pulsado"
         android:text="Button"
         android:textSize="20sp"
         app:iconTint="#7FB541"
@@ -74,15 +82,15 @@
 
     <TextView
         android:id="@+id/textoexcribe"
-        android:layout_width="366dp"
-        android:layout_height="0dp"
+        android:layout_width="278dp"
+        android:layout_height="60dp"
         android:layout_marginTop="39dp"
         android:layout_marginBottom="14dp"
         android:text="¿Cual será la palabra equivocada?"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="#452088"
-        android:textSize="34sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/innecesario"
         app:layout_constraintEnd_toEndOf="parent"
@@ -92,11 +100,12 @@
 
     <TextView
         android:id="@+id/innecesario"
-        android:layout_width="266dp"
-        android:layout_height="0dp"
+        android:layout_width="242dp"
+        android:layout_height="47dp"
         android:layout_marginBottom="603dp"
         android:text="❓❓🔻💩 🥴"
-        android:textSize="34sp"
+        android:textAlignment="center"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.579"
