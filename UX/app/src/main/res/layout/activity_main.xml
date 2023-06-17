@@ -11,7 +11,7 @@
         android:layout_width="186dp"
         android:layout_height="0dp"
         android:layout_marginTop="63dp"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="111dp"
         android:fontFamily="serif"
         android:text="Temática"
         android:textAlignment="center"
@@ -19,35 +19,33 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/palabra"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/palabra"
-        android:layout_width="210dp"
-        android:layout_height="65dp"
-        android:layout_marginBottom="373dp"
+        android:layout_width="214dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="86dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="escriba palabra"
+        android:hint="escriba palabra"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/enviar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tematica" />
 
     <Button
         android:id="@+id/enviar"
-        android:layout_width="192dp"
-        android:layout_height="88dp"
+        android:layout_width="171dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="202dp"
+        android:onClick="botonEnviar_pulsado"
         android:text="enviar!"
         android:textColor="#FFEB3B"
-        android:onClick="botonEnviar_pulsado"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/palabra" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import java.io.IOException;
+
 
 
 
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("onCreate", "estoy en onCreate");
@@ -28,12 +31,16 @@ public class MainActivity extends AppCompatActivity {
 
         tematica = (TextView) findViewById(R.id.tematica);
         textoPalabra = (EditText) findViewById(R.id.palabra);
-
-
     }
 
-    public void botonEnviar_pulsado (View quien){
-        Log.d("botón", "Botón pulsado");
+   /* public void botonEnviar_pulsado (View quien){
+        Log.d( "primeraApp", "MainActivity.botonEnviar_pulsado(): empieza");
+        //pasar la palabra del EditText a String
+        String palabraString = String.valueOf(textoPalabra.getText());
+        Log.d("primeraApp", palabraString);
+
+
+        LogicaNegocio.mandarPalabraAlServidorRest(palabraString);
 
         //intent `para empezar la otra actividad
         enviar = new Intent(this, pantalla6.class);
@@ -42,5 +49,19 @@ public class MainActivity extends AppCompatActivity {
         this.startActivity(enviar);
 
 
-    }
+    }*/
+   public void botonEnviar_pulsado (View view){
+       Log.d( "primeraApp", "MainActivity.botonEnviar_pulsado(): empieza");
+       //pasar la palabra del EditText a String
+       //String palabraString = textoPalabra.getText().toString();
+       Log.d("primeraApp", textoPalabra.getText().toString());
+        LogicaNegocio.mandarPalabraAlServidorRest(textoPalabra.getText().toString(), () -> {
+            enviar = new Intent(this, pantalla6.class);
+            //empieza la actividad
+            this.startActivity(enviar);
+            Log.d("primeraApp", "paso de pantalla");
+        });
+
+   }
+
 }
