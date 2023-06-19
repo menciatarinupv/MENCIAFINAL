@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
+import java.io.PipedOutputStream;
 import java.util.Optional;
 
 // -------------------------------------------------------------------------------------------------
@@ -36,6 +37,9 @@ public class LogicaNegocio {
     public interface Respuesta2 {
         void callback ( Bundle resultado);
     }
+    public interface RespuestaBorrar {
+        void callback();
+    }
 
 
     // ---------------------------------------------------------------------------------------------
@@ -57,7 +61,24 @@ public class LogicaNegocio {
     // ---------------------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------------------
 
+    public static void borrarTodoAntesDeJugar (RespuestaBorrar respuesta ){
+        Log.d("primeraApp", "empiezaBorrarTodo");
+        PeticionarioREST elPeticionario = new PeticionarioREST();
+        Log.d("primeraApp", "creoPeticionarioBorrar");
 
+        elPeticionario.hacerPeticionREST(
+                "GET",
+                url_servidor.orElse(servidor_por_defecto) + "/borrar",
+                null,
+                new PeticionarioREST.RespuestaREST() {
+                    @Override
+                    public void callback(int codigo, String cuerpo) {
+                        respuesta.callback();
+                    }
+                }
+
+        );
+    }
    public static void mandarPalabraAlServidorRest(String palabraString, RespuestaVacia respuestaUI) {
        Log.d("primeraApp", "empiezaMadarPalabra");
        PeticionarioREST elPeticionario = new PeticionarioREST();
@@ -118,7 +139,7 @@ public class LogicaNegocio {
                });
     }
 
-    public static void pedirPalabraAlServidorRest(int palabracual,Respuesta2 respuesta22){
+   public static void pedirPalabraAlServidorRest(int palabracual,Respuesta2 respuesta22){
         Log.d("primeraApp", "empiezaMadarPalabraUser");
         PeticionarioREST elPeticionario2 = new PeticionarioREST();
         Log.d("primeraApp", "creoPeticionario2");
@@ -160,6 +181,18 @@ public class LogicaNegocio {
 
                     }
                 });
+   }
 
-    }
+   public static void mandarPuntuacionAlServidorRest(){
+
+   }
+
+
+
+
+
+
+
+
+
 }

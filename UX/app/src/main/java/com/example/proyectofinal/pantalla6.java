@@ -57,10 +57,6 @@ private Button palabra5;
         this.startActivity(enviar1);
         Log.d("segundaApp", "paso de pantalla a 7");
 
-        //LogicaNegocio.pedirPalabraAlServidorRest(0, (respuesta)->{
-          //  Log.d("segundaApp", String.valueOf(respuesta));
-            //palabra1.setText(respuesta.getString("palabra"));
-        //});
 
     }
     public void botonPalabra2_pulsado(View view){

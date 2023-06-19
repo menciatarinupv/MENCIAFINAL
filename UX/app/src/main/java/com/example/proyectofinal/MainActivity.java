@@ -35,6 +35,14 @@ public class MainActivity extends AppCompatActivity {
         tematica = (TextView) findViewById(R.id.tematica);
         textoPalabra = (EditText) findViewById(R.id.palabra);
         textoNickname = (EditText) findViewById(R.id.nickname);
+
+
+       /* LogicaNegocio.borrarTodoAntesDeJugar((new LogicaNegocio.RespuestaBorrar() {
+            @Override
+            public void callback() {
+               Log.d("primeraApp", "todo se ha borrado");
+            }
+        }));*/
     }
 
    public void botonEnviar_pulsado (View view){
