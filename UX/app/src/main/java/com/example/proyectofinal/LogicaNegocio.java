@@ -31,8 +31,8 @@ public class LogicaNegocio {
     public interface RespuestaVacia{
         void callback();
     }
-    public interface RespuestaRESTUI {
-        void callbackUI(int codigo, String cuerpo);
+    public interface RespuestaPuntuacion{
+        void callback();
     }
     public interface Respuesta2 {
         void callback ( Bundle resultado);
@@ -76,7 +76,6 @@ public class LogicaNegocio {
                         respuesta.callback();
                     }
                 }
-
         );
     }
    public static void mandarPalabraAlServidorRest(String palabraString, RespuestaVacia respuestaUI) {
@@ -183,12 +182,32 @@ public class LogicaNegocio {
                 });
    }
 
-   public static void mandarPuntuacionAlServidorRest(){
+   public static void mandarPuntuacionAlServidorRest(String palabraVotada, RespuestaPuntuacion respuestaPuntuacion){
+       Log.d("segundaApp", "empiezaMadarPalabraUser");
+       PeticionarioREST elPeticionario3 = new PeticionarioREST();
+       Log.d("segundaApp", "creoPeticionario3");
+
+       JSONObject json2 = new JSONObject();
+       try {
+           json2.put("palabra", palabraVotada);
+           Log.d("primeraApp", "paso a json el string de palabra votada" + json2);
+       } catch (JSONException e) {
+           e.printStackTrace();
+       }
+       elPeticionario3.hacerPeticionREST(
+               "POST",
+               url_servidor.orElse(servidor_por_defecto) + "/ModificarPuntuacion",
+               json2.toString(),
+               new PeticionarioREST.RespuestaREST() {
+                   @Override
+                   public void callback(int codigo, String cuerpo) {
+                       respuestaPuntuacion.callback();
+                   }
+               }
+
+       );
 
    }
-
-
-
 
 
 

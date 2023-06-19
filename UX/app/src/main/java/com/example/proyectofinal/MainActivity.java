@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         textoNickname = (EditText) findViewById(R.id.nickname);
 
 
-       /* LogicaNegocio.borrarTodoAntesDeJugar((new LogicaNegocio.RespuestaBorrar() {
+        /*LogicaNegocio.borrarTodoAntesDeJugar((new LogicaNegocio.RespuestaBorrar() {
             @Override
             public void callback() {
                Log.d("primeraApp", "todo se ha borrado");

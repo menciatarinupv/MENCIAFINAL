@@ -53,43 +53,50 @@ private Button palabra5;
     public void botonPalabra1_pulsado(View view){
         Log.d("segundaApp","botonPalabra1_pulsado empieza");
 
-        enviar1 = new Intent(this, pantalla7.class);
-        this.startActivity(enviar1);
-        Log.d("segundaApp", "paso de pantalla a 7");
+        LogicaNegocio.mandarPuntuacionAlServidorRest(palabra1.getText().toString(),()->{
+            enviar1 = new Intent(this, pantalla7.class);
+            this.startActivity(enviar1);
+            Log.d("segundaApp", "paso de pantalla a 7");
+
+        });
 
 
     }
     public void botonPalabra2_pulsado(View view){
         Log.d("segundaApp","botonPalabra2_pulsado empieza");
+        LogicaNegocio.mandarPuntuacionAlServidorRest(palabra2.getText().toString(),()->{
+            enviar2 = new Intent(this, pantalla7.class);
+            this.startActivity(enviar2);
+            Log.d("segundaApp", "paso de pantalla a 7");
+        });
 
-        enviar2 = new Intent(this, pantalla7.class);
-        this.startActivity(enviar2);
-        Log.d("segundaApp", "paso de pantalla a 7");
+
 
     }
     public void botonPalabra3_pulsado(View view){
         Log.d("segundaApp","botonPalabra3_pulsado empieza");
-
-        enviar3 = new Intent(this, pantalla7.class);
-        this.startActivity(enviar3);
-        Log.d("segundaApp", "paso de pantalla a 7");
-
+        LogicaNegocio.mandarPuntuacionAlServidorRest(palabra3.getText().toString(),()->{
+            enviar3 = new Intent(this, pantalla7.class);
+            this.startActivity(enviar3);
+            Log.d("segundaApp", "paso de pantalla a 7");
+        });
     }
     public void botonPalabra4_pulsado(View view){
         Log.d("segundaApp","botonPalabra4_pulsado empieza");
-
-        enviar4 = new Intent(this, pantalla7.class);
-        this.startActivity(enviar4);
-        Log.d("segundaApp", "paso de pantalla a 7");
+        LogicaNegocio.mandarPuntuacionAlServidorRest(palabra4.getText().toString(),()->{
+            enviar4 = new Intent(this, pantalla7.class);
+            this.startActivity(enviar4);
+            Log.d("segundaApp", "paso de pantalla a 7");
+        });
 
     }
     public void botonPalabra5_pulsado(View view){
         Log.d("segundaApp","botonPalabra5_pulsado empieza");
-
-        enviar5 = new Intent(this, pantalla7.class);
-        this.startActivity(enviar5);
-        Log.d("segundaApp", "paso de pantalla a 7");
-
+        LogicaNegocio.mandarPuntuacionAlServidorRest(palabra5.getText().toString(),()->{
+            enviar5 = new Intent(this, pantalla7.class);
+            this.startActivity(enviar5);
+            Log.d("segundaApp", "paso de pantalla a 7");
+        });
     }
 
 }
