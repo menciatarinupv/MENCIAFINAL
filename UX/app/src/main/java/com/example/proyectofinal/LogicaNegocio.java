@@ -6,15 +6,11 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
-import java.io.PipedOutputStream;
+import java.util.Arrays;
 import java.util.Optional;
 
 // -------------------------------------------------------------------------------------------------
@@ -39,6 +35,16 @@ public class LogicaNegocio {
     }
     public interface RespuestaBorrar {
         void callback();
+    }
+    public interface RespuestaPalabras{
+        void callback(String resultados );
+    }
+    public interface RespuestaCodigos{
+        void callback(String resultados);
+    }
+    public interface RespuestaPuesto{
+
+        void callback(int codigoquequiero);
     }
 
 
@@ -209,7 +215,120 @@ public class LogicaNegocio {
 
    }
 
+//creo metodo pedirTodasLasPuntuaciones(string palabras todas, respuesta) --> devuelve array con todas las puntuaciones
+//creo el método obtenerCódigoPalabraDelPuesto(Int quepuestoquiero) --> devuelve el código de la palabra con el puesto "quepuestoquiero"
+//creo el metodo pedirUsuarioConCódigoPalabra(Int codigo, respuesta ) --> devuelve el usuario y hago set text
 
+    public static void pedirTodasLasPalabras(RespuestaPalabras respuestapal){
+        Log.d("terceraApp", "empiezaPedirTodasLasPalabras");
+        PeticionarioREST elPeticionario4 = new PeticionarioREST();
+        Log.d("terceraApp", "creoPeticionario4");
+
+        elPeticionario4.hacerPeticionREST(
+                "GET",
+                url_servidor.orElse(servidor_por_defecto)+"/palabras",
+                null,
+                new PeticionarioREST.RespuestaREST() {
+                    @Override
+                    public void callback(int codigo, String cuerpo) {
+                        Log.d("terceraApp", "el cuerpo es" + codigo);
+
+                        Bundle res = new Bundle();
+                        res.putInt( "codigo", codigo );
+                        res.putString( "resultadoSinParsear", cuerpo );
+
+
+                        respuestapal.callback(cuerpo);
+                        Log.d("terceraApp","tengo" + cuerpo);
+                        Log.d( "terceraApp", "LogicaNegocio.pedirAlgoAlServidorRest().callback: recibo: " + cuerpo );
+
+                    }
+                });
+    }
+
+    public static void pedirTodosLosCodigos(RespuestaCodigos respuestacod) {
+        pedirTodasLasPalabras(new RespuestaPalabras() {
+            @Override
+            public void callback(String todasLasPalabras) {
+                PeticionarioREST elPeticionario5 = new PeticionarioREST();
+
+                try {
+                    // Convertir el string de palabras a JSON
+                    JSONArray palabrasJsonArray = new JSONArray(todasLasPalabras);
+
+                    // Pasar este JSONArray como cuerpo de la solicitud POST
+                    elPeticionario5.hacerPeticionREST(
+                            "POST",
+                            url_servidor.orElse(servidor_por_defecto)+"/puntuacionPalabras",
+                            palabrasJsonArray.toString(),
+                            new PeticionarioREST.RespuestaREST() {
+                                @Override
+                                public void callback(int codigo, String cuerpo) {
+                                    Log.d("terceraApp", "el cuerpo es" + cuerpo);
+
+                                    Bundle res = new Bundle();
+                                    res.putInt( "codigo", codigo );
+                                    res.putString( "resultadoSinParsear", cuerpo );
+
+                                    respuestacod.callback(cuerpo);
+                                    Log.d("terceraApp","tengo" + cuerpo);
+                                    Log.d( "terceraApp", "LogicaNegocio.pedirTodosLosCodigos().callback: recibo: " + cuerpo );
+                                }
+                            }
+                    );
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+    public static void obtenerCodigoPalabraDelPuesto(int quepuestoquiero, RespuestaPuesto respuestapuesto) {
+        pedirTodosLosCodigos(new RespuestaCodigos() {
+            @Override
+            public void callback(String todosLosCodigos) {
+                try {
+                    // Convertir el string de códigos a un array de int
+                    JSONArray codigosJsonArray = new JSONArray(todosLosCodigos);
+                    int[] codigos = new int[codigosJsonArray.length()];
+                    for (int i = 0; i < codigosJsonArray.length(); i++) {
+                        codigos[i] = codigosJsonArray.getInt(i);
+                    }
+
+                    // Encontrar el quepuestoquiero-ésimo número más grande y su posición
+                    int[] copiaCodigos = codigos.clone();
+                    Arrays.sort(copiaCodigos);
+                    int target = copiaCodigos[copiaCodigos.length - quepuestoquiero];
+                    int posicion = -1;
+                    for (int i = 0; i < codigos.length; i++) {
+                        if (codigos[i] == target) {
+                            posicion = i;
+                            break;
+                        }
+                    }
+
+                    // Obtener todas las palabras y encontrar el código de la palabra en la posición encontrada
+                    int finalPosicion = posicion;
+                    Log.d("terceraApp","la posicion que quiero es"+finalPosicion);
+                    pedirTodasLasPalabras(new RespuestaPalabras() {
+                        @Override
+                        public void callback(String todasLasPalabras) {
+                            try {
+                                JSONArray palabrasJsonArray = new JSONArray(todasLasPalabras);
+                                JSONObject palabraObj = palabrasJsonArray.getJSONObject(finalPosicion);
+                                int codigoPalabra = palabraObj.getInt("codigo");
+                                respuestapuesto.callback(codigoPalabra);
+                                Log.d("terceraApp","llego al final de obtener codigo con puesto");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
 
 
