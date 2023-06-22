@@ -46,6 +46,9 @@ public class LogicaNegocio {
 
         void callback(int codigoquequiero);
     }
+    public interface RespuestaUsuario{
+        void callback(String resultado);
+    }
 
 
     // ---------------------------------------------------------------------------------------------
@@ -330,7 +333,44 @@ public class LogicaNegocio {
         });
     }
 
+public static void pedirUsuarioConCodigoDePalabra(int cod, RespuestaUsuario respuestausuario){
+    Log.d("terceraApp", "empiezaPedirUsuarioConCódigoDePalabra");
+    PeticionarioREST elPeticionario6 = new PeticionarioREST();
+    Log.d("terceraApp", "creoPeticionario6");
 
+    JSONObject json5 = new JSONObject();
+    try {
+        json5.put("codigo", cod);
+        Log.d("terceraApp", json5.toString());
+    } catch (JSONException e) {
+        e.printStackTrace();
+    }
+
+    elPeticionario6.hacerPeticionREST(
+            "POST",
+            url_servidor.orElse(servidor_por_defecto) + "/UsuarioconCodPalabra",
+            json5.toString(),
+            new PeticionarioREST.RespuestaREST() {
+                @Override
+                public void callback(int codigo, String cuerpo) {
+                    Log.d("terceraApp", "el cuerpo es: " + codigo);
+
+                   /* Bundle res = new Bundle();
+                    res.putInt( "codigo", codigo );
+                    res.putString( "resultadoSinParsear", cuerpo);
+                    Log.d("terceraApp", res.toString());*/
+
+
+                    respuestausuario.callback(cuerpo);
+                    Log.d("terceraApp","tengo" + cuerpo.toString());
+                    Log.d( "terceraApp", "LogicaNegocio.pedirAlgoAlServidorRest().callback: recibo: " + cuerpo );
+
+                }
+            }
+
+
+    );
+}
 
 
 }

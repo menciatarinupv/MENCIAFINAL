@@ -70,6 +70,7 @@ public class PeticionarioREST extends AsyncTask<Void, Void, Boolean>{
                 connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
                 connection.setRequestProperty("Accept", "application/json");
 
+
                 // connection.setRequestProperty("Accept", "*/*);
 
                 // connection.setUseCaches(false);
