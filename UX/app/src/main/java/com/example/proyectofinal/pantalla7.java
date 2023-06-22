@@ -113,7 +113,7 @@ public class pantalla7 extends AppCompatActivity{
                 });
             }
         });
-        LogicaNegocio.obtenerCodigoPalabraDelPuesto(5, new LogicaNegocio.RespuestaPuesto() {
+       LogicaNegocio.obtenerCodigoPalabraDelPuesto(5, new LogicaNegocio.RespuestaPuesto() {
             @Override
             public void callback(int codigo) {
                 // Aquí recibes el código de palabra

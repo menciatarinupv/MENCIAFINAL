@@ -353,15 +353,18 @@ public static void pedirUsuarioConCodigoDePalabra(int cod, RespuestaUsuario resp
             new PeticionarioREST.RespuestaREST() {
                 @Override
                 public void callback(int codigo, String cuerpo) {
-                    Log.d("terceraApp", "el cuerpo es: " + codigo);
+                    Log.d("terceraApp", "el cuerpo es: " + cuerpo);
 
-                   /* Bundle res = new Bundle();
-                    res.putInt( "codigo", codigo );
-                    res.putString( "resultadoSinParsear", cuerpo);
-                    Log.d("terceraApp", res.toString());*/
+                    String nombre = "";
+                    try {
+                        JSONObject jsonObject = new JSONObject(cuerpo);
+                        nombre = jsonObject.getString("nombre");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    respuestausuario.callback(nombre);
 
-
-                    respuestausuario.callback(cuerpo);
+                   //respuestausuario.callback(cuerpo);
                     Log.d("terceraApp","tengo" + cuerpo.toString());
                     Log.d( "terceraApp", "LogicaNegocio.pedirAlgoAlServidorRest().callback: recibo: " + cuerpo );
 
